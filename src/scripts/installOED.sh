@@ -65,10 +65,14 @@ while [ $create_error == 0 ]; do
     sleep 1
     echo "Attempting to create database."
     # Redirect stderr to a file
-    npm run createdb |& tee /tmp/oed.error > /dev/null
+    # npm run createdb |& tee /tmp/oed.error > /dev/null
+    npm run createdb |& tee /tmp/oed.error  
     # search the file for the kind of error we can recover from
     grep -q 'Error: connect ECONNREFUSED' /tmp/oed.error
     create_error=$?
+	echo "/tmp/oed.error start"
+	cat /tmp/oed.error
+	echo "/tmp/oed.error end"
 
     # Check loop runtime
     ((tries=tries+1))

@@ -69,6 +69,7 @@ function sqlFile(filePath) {
 async function createSchema(conn) {
 	// We need to require these here instead of at the top to prevent circular dependency issues.
 	/* eslint-disable global-require */
+	console.log('In createSchema');
 	const Meter = require('./Meter');
 	const Reading = require('./Reading');
 	const User = require('./User');
@@ -80,7 +81,9 @@ async function createSchema(conn) {
 
 	/* eslint-enable global-require */
 	await Meter.createMeterTypesEnum(conn);
+	console.log('create enum');
 	await Meter.createTable(conn);
+	console.log('create table')
 	await Reading.createTable(conn);
 	await Reading.createCompressedReadingsFunction(conn);
 	await Reading.createCompressedGroupsReadingsFunction(conn);
